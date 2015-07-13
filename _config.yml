@@ -1,0 +1,21 @@
+# Where things are (defaults; but I like being explicit)
+
+url: http://ehiggs.github.io
+title: Technical Notes
+author: Ewan Higgs
+simple_search: 
+description:
+
+root:        /
+permalink: /:year/:month/:title/
+source:      ./.
+destination: ./public
+plugins:     ./plugins
+layouts:     ./_layouts
+data_source: ./_data
+collections: null
+
+highlighter: false
+markdown: redcarpet
+redcarpet: 
+    extensions: [tables]
