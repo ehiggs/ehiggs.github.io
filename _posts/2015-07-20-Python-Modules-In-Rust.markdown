@@ -14,12 +14,7 @@ Rust?
 
 I set out to see the current state of binding Python to Rust.
 
-# rust-cpython
-
-The best library I've found for writing modules in Rust is
-[rust-cpython](https://github.com/dgrunwald/rust-cpython/). It had the widest
-range of coverage that I've found and it supports both Python 2 and Python 3.
-
+## Python
 Let's begin with a fibonacci sequence calculator. It's pretty basic in Python:
 
 {% gist 9d7bb6977ea084491c57 %} 
@@ -59,17 +54,21 @@ that looks so much like Python that you can almost copy paste your code into a
 `pyx` module, configure `setuptools` to find it, and you're running at a much
 faster speed. If you take a look at the Cython code, set the types on the
 variables, turn off array bounds checking, and other tweaks, it competes with
-hand written C. It really is awesome.
+hand written C. It's really awesome.
 
 {% gist 587e2b8982e7690a85dd %}
 
-## Rusta (rust-cpython)
-Writing this in Rust took some trial and error since it's so new. But it was
-actually a very pleasant experience. With a little manipulation of the
-`Cargo.toml` file (used to define a reproducable build in Rust), you can build
-against Python 2, or Python 3. None of the other wrappers, aside from Cython can
-do this.
-Finally here's how it looks in Rust:
+## Rust (rust-cpython)
+
+The best library I've found for writing modules in Rust is
+[rust-cpython](https://github.com/dgrunwald/rust-cpython/).  Using it took some
+trial and error since it's so new and I wouldn't call myself a Rustacean just
+yet. But it was actually a very pleasant experience. With a little manipulation
+of the `Cargo.toml` file (used to define a reproducable build in Rust), you can
+build against Python 2 or 3. None of the other wrappers, aside from
+Cython can do this.
+
+Finally, here's how the Fibonacci number generator looks in Rust:
 
 {% gist bde1733d977f84b5509b %}
 
@@ -94,9 +93,8 @@ number from the IPython shell:
 | Python 2.7.10  | Rust   | `1000000 loops, best of 3: 177 ns per loop` |
 | Python 2.7.10  | Cython | `10000000 loops, best of 3: 171 ns per loop` |
 
-It's not really interesting either aside from the confidence that the Rust API
-wrapper probably isn't getting into the way too much.
-
+As it's a microbenchmark, the only thing I would say with any amount of confidence
+is that the Rust API wrapper probably isn't getting in the way too much.
 
 # Current work
 Some Rustaceans/Pythonistas are working on this infrastructure and it's pretty
@@ -123,11 +121,9 @@ example, [`collections.OrderedDict` was implemented in raw Python until Python
 [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization)
 on the Rust side should make writing containers in Rust a lot easier than in C.
 
-
 # Conclusion
 Rust looks like a really great language to implement Python modules. It's not
 there yet if you want to integrate with the numeric/stats/machine learning
 libraries that Python offers. But with some love and more community effort, I
-could see a lot of work extending Python with Rust. I think if you have some
-performance sensitive systems project and want to control it from a scripting
-language, you could very well do this by combining Rust and Python.
+could see a community building in this direction. I think it's a very promising
+start and I hope it continues.
