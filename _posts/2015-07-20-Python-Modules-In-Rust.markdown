@@ -104,7 +104,7 @@ run `python setup.py install` and it will be able to build the Python modules
 just like you would expect.
 
 
-## Current issues
+# Current issues
 1. I haven't found anyone who is looking to support Numpy yet, so anyone who
    wants to do their numeric/scientific development in Python/Rust should hold
    off at the moment. 
