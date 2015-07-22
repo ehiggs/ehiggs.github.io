@@ -15,7 +15,7 @@ layouts:     ./_layouts
 data_source: ./_data
 collections: null
 
-highlighter: false
+highlighter: pygments
 markdown: redcarpet
 redcarpet: 
     extensions: [tables]
