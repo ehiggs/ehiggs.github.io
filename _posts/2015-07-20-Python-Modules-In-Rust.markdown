@@ -14,7 +14,7 @@ Rust?
 
 I set out to see the current state of binding Python to Rust.
 
-## rust-cpython
+# rust-cpython
 
 The best library I've found for writing modules in Rust is
 [rust-cpython](https://github.com/dgrunwald/rust-cpython/). It had the widest
@@ -24,7 +24,7 @@ Let's begin with a fibonacci sequence calculator. It's pretty basic in Python:
 
 {% gist 9d7bb6977ea084491c57 %} 
 
-### C
+## C
 C has a lot of boiler plate where I could just use the `cffi` module. But
 using the actual API is worth it in case you want to do any sort of error
 handling in the C side. For example, if you pass a wrong type through `cffi`,
@@ -37,7 +37,7 @@ API. Especially when I compare it with the Cython output.
 
 {% gist b57750eae564b1de4b75 %}
 
-### C++ (Boost.Python)
+## C++ (Boost.Python)
 Here's what the equivalent looks like in
 [Boost.Python](http://www.boost.org/doc/libs/1_58_0/libs/python/doc/).
 Boost.Python is a really nice library for wrapping C++ to call from Python.
@@ -53,7 +53,7 @@ don't recommend it.
 
 {% gist 53a5d6b8a4e593f90447 %}
 
-### Cython
+## Cython
 Cython is a fantastic tool for writing Python bindings. It's a dialect of Python
 that looks so much like Python that you can almost copy paste your code into a
 `pyx` module, configure `setuptools` to find it, and you're running at a much
@@ -63,7 +63,7 @@ hand written C. It really is awesome.
 
 {% gist 587e2b8982e7690a85dd %}
 
-### Rusta (rust-cpython)
+## Rusta (rust-cpython)
 Writing this in Rust took some trial and error since it's so new. But it was
 actually a very pleasant experience. With a little manipulation of the
 `Cargo.toml` file (used to define a reproducable build in Rust), you can build
@@ -85,24 +85,26 @@ number from the IPython shell:
 
 | Python Version | Implementing language | timeit result |
 |----------------|-----------------------|---------------|
-| Python 3.4.2   | Python | 100000 loops, best of 3: 7.05 µs per loop |
-| Python 3.4.2   | C      | 1000000 loops, best of 3: 288 ns per loop |
-| Python 3.4.2   | Rust   | 1000000 loops, best of 3: 229 ns per loop |
-| Python 3.4.2   | Cython | 10000000 loops, best of 3: 192 ns per loop |
-| Python 2.7.10  | Python | 100000 loops, best of 3: 6.11 µs per loop |
-| Python 2.7.10  | C++    | 1000000 loops, best of 3: 219 ns per loop |
-| Python 2.7.10  | Rust   | 1000000 loops, best of 3: 177 ns per loop |
-| Python 2.7.10  | Cython | 10000000 loops, best of 3: 171 ns per loop |
+| Python 3.4.2   | Python | `100000 loops, best of 3: 7.05 µs per loop` |
+| Python 3.4.2   | C      | `1000000 loops, best of 3: 288 ns per loop` |
+| Python 3.4.2   | Rust   | `1000000 loops, best of 3: 229 ns per loop` |
+| Python 3.4.2   | Cython | `10000000 loops, best of 3: 192 ns per loop` |
+| Python 2.7.10  | Python | `100000 loops, best of 3: 6.11 µs per loop` |
+| Python 2.7.10  | C++    | `1000000 loops, best of 3: 219 ns per loop` |
+| Python 2.7.10  | Rust   | `1000000 loops, best of 3: 177 ns per loop` |
+| Python 2.7.10  | Cython | `10000000 loops, best of 3: 171 ns per loop` |
 
 It's not really interesting either aside from the confidence that the Rust API
 wrapper probably isn't getting into the way too much.
 
-## Current work
+
+# Current work
 Some Rustaceans/Pythonistas are working on this infrastructure and it's pretty
 exciting. Other pieces of work being put into place are integration with 
 [Python's setuptools](https://github.com/novocaine/rust-python-ext) so you can
 run `python setup.py install` and it will be able to build the Python modules
 just like you would expect.
+
 
 ## Current issues
 1. I haven't found anyone who is looking to support Numpy yet, so anyone who
@@ -112,7 +114,8 @@ just like you would expect.
    shared objects are always prefixed with `lib`. This means you need to import
    the module as `import libXYZ` which isn't really what you want.
 
-## Further work
+
+# Further work
 I haven't tested managing objects on the Rust side, but this is apparently a
 place where Python can potentially get some performance improvements. For
 example, [`collections.OrderedDict` was implemented in raw Python until Python
@@ -120,7 +123,8 @@ example, [`collections.OrderedDict` was implemented in raw Python until Python
 [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization)
 on the Rust side should make writing containers in Rust a lot easier than in C.
 
-## Conclusion
+
+# Conclusion
 Rust looks like a really great language to implement Python modules. It's not
 there yet if you want to integrate with the numeric/stats/machine learning
 libraries that Python offers. But with some love and more community effort, I
