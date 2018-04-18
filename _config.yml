@@ -10,12 +10,17 @@ root:        /
 permalink: /:year/:month/:title/
 source:      ./.
 destination: ./public
-plugins:     ./plugins
-layouts:     ./_layouts
-data_source: ./_data
+plugins_dir: ./plugins
+layouts_dir: ./_layouts
+data_dir:    ./_data
 collections: null
 
 highlighter: pygments
 markdown: redcarpet
 redcarpet: 
     extensions: [tables]
+
+plugins:
+    - jekyll-gist
+whitelist:
+    - jekyll-gist
